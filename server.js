@@ -5,9 +5,7 @@ const mongoose = require('mongoose')
 const app = express()
 app.use(express.json())
 
-app.get('/',(req,res)=>{
-    res.json({message:"Hello Nu"})
-})
+app.use('/api', require('./routes/Router'))
 
 const URI = process.env.MONGODB_URL
 mongoose.connect(URI,{
