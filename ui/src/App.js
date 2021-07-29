@@ -1,12 +1,13 @@
 import {BrowserRouter as Router, Route} from 'react-router-dom'; 
-import PageRender from './render.js';
+import PageRender from './render'
 
 function App() {
   return (
     <Router>
     <div className="App">
     <div className='main'>
-      <Route path ="/:element" component={PageRender}/>
+      <Route exact path ="/:page" component={PageRender}/>
+      <Route exact path="/:page/:id" component={PageRender}/>
     </div>
     </div>
     </Router>
