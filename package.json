@@ -4,8 +4,14 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev-all": "nodemon server.js"
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "ui": "cd ui && npm run start",
+    "server-install": "npm install",
+    "ui-install": "cd ui && npm install",
+    "install-all": "concurrently \"npm run server-install\" \"npm run ui-install\" ",
+    "dev-all": "concurrently \"npm run server\" \"npm run ui\" ",
+    "heroku-postbuild": "cd ui && npm install && npm run build"
   },
   "author": "",
   "license": "ISC",
