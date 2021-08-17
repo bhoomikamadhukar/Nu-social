@@ -3,6 +3,7 @@
     background: white;
     box-shadow: 0 0 5px #ddd;
     padding: 20px;
+    padding-left: 15px;
     border-radius: 5px;
     border: 1px solid rgb(0, 0, 0, .125);
 }
@@ -31,9 +32,11 @@
     align-items: center;
     cursor: pointer;
     padding: 15px 25px;
+    padding-left: 15px;
 }
 .posts .card_header .card_name{
     transform: translateY(3px);
+    padding-left: 15px;
 }
 .posts .card_header .dropdown-menu{
     position: absolute;

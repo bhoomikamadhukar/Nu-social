@@ -25,7 +25,8 @@ const userSchema = new mongoose.Schema({
     },
     avatar: {
         type: String,
-        default: 'https://upload.wikimedia.org/wikipedia/commons/5/59/User-avatar.svg'
+        default: 'https://img.icons8.com/ios-glyphs/30/000000/user--v1.png'
+        
     },
     role: {type: String, default: 'user'},
     gender: {type: String, default: ''},
@@ -38,6 +39,10 @@ const userSchema = new mongoose.Schema({
         ref: 'user'
     }],
     following: [{
+        type: mongoose.Types.ObjectId,
+        ref: 'user'
+    }],
+    saved:[{
         type: mongoose.Types.ObjectId,
         ref: 'user'
     }]

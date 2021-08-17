@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getDataAPI } from '../../utils/fetchData'
 import { GLOBALTYPES } from '../../redux/actions/globalTypes'
@@ -11,24 +11,7 @@ const Search = () => {
 
     const { auth } = useSelector(state => state)
     const dispatch = useDispatch()
-    useEffect(()=>{
-        if(search){
-            getDataAPI(`search?username=${search}`,auth.token)
-            .then(res=>setUsers(res.data.users))
-            .catch(err => {
-                dispatch({
-                    type:GLOBALTYPES.ALERT, payload:{error :err.response.data.msg}
-                })
-
-            }
-            )
-        }else{
-            setUsers([])
-        }
-
-    },[search,auth.token,dispatch])
     const [load, setLoad] = useState(false)
-
 
 
     const handleSearch = async (e) => {
@@ -54,15 +37,15 @@ const Search = () => {
 
     return (
         <form className="search_form" onSubmit={handleSearch}>
-            <input type="text" name="search" value={search} id="search" title="Search"
+            <input type="text" name="search" value={search} id="search" title="Enter to Search"
             onChange={e => setSearch(e.target.value.toLowerCase().replace(/ /g, ''))} />
 
             <div className="search_icon" style={{opacity: search ? 0 : 0.3}}>
                 <span className="material-icons">search</span>
-                <span>Search</span>
+                <span>Enter to Search</span>
             </div>
 
-            <div className="close_search" onClick= {handleClose}
+            <div className="close_search" onClick={handleClose}
             style={{opacity: users.length === 0 ? 0 : 1}} >
                 &times;
             </div>
@@ -78,7 +61,7 @@ const Search = () => {
                         key={user._id} 
                         user={user} 
                         border="border"
-                       
+                        handleClose={handleClose} 
                         />
                     ))
                 }

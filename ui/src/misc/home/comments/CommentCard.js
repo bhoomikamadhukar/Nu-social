@@ -1,6 +1,5 @@
-  
 import React, { useState, useEffect } from 'react'
-import Avatar from '../../Avatar'
+import Avatar from 'react-avatar'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
 
@@ -62,7 +61,10 @@ const CommentCard = ({children, comment, post, commentId}) => {
     }
 
 
-    
+    const handleReply = () => {
+        if(onReply) return setOnReply(false)
+        setOnReply({...comment, commentId})
+    }
 
     const styleCard = {
         opacity: comment._id ? 1 : 0.5,
@@ -72,7 +74,7 @@ const CommentCard = ({children, comment, post, commentId}) => {
     return (
         <div className="comment_card mt-2" style={styleCard}>
             <Link to={`/profile/${comment.user._id}`} className="d-flex text-dark">
-                <Avatar src={comment.user.avatar} size="small-avatar" />
+            <Avatar name={`${auth.user.username}` } size="15"/>
                 <h6 className="mx-1">{comment.user.username}</h6>
             </Link>
 
@@ -133,7 +135,7 @@ const CommentCard = ({children, comment, post, commentId}) => {
                             </>
 
                             : <small className="font-weight-bold mr-3"
-                            >
+                            onClick={handleReply}>
                                 {onReply ? 'cancel' :'reply'}
                             </small>
                         }
@@ -149,7 +151,16 @@ const CommentCard = ({children, comment, post, commentId}) => {
                 </div>
             </div> 
             
-          
+            {
+                onReply &&
+                <InputComment post={post} onReply={onReply} setOnReply={setOnReply} >
+                    <Link to={`/profile/${onReply.user._id}`} className="mr-1">
+                        @{onReply.user.username}:
+                    </Link>
+                </InputComment>
+            }
+
+            {children}
         </div>
     )
 }

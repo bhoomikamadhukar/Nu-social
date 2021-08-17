@@ -1,4 +1,3 @@
-
 const Comments = require('../models/commentModel')
 const Posts = require('../models/postModel')
 
@@ -7,6 +6,7 @@ const commentCtrl = {
     createComment: async (req, res) => {
         try {
             const { postId, content, tag, reply, postUserId } = req.body
+            
 
             const post = await Posts.findById(postId)
             if(!post) return res.status(400).json({msg: "This post does not exist."})
@@ -74,5 +74,23 @@ const commentCtrl = {
             return res.status(500).json({msg: err.message})
         }
     },
+    deleteComment: async(req,res)=>{
+        try{
+            const comment = await Comments.findOneAndDelete({
+                _id:req.params.id,
+                $or:[
+                    {user:req.user._id},
+                    {postUserId:req.user._id}
+                ]
+            })
+            console.log(comment)
+            await Posts.findOneAndUpdate({_id:comment.postId},{
+                $pull:{comments: req.params._id}
+            })
+            res.json({msg:"Deleted comment"})
+        }catch(err){
+            return res.status(500).json({msg:err.message})
+        }
+    }
 }
 module.exports = commentCtrl

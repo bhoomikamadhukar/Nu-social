@@ -1,9 +1,23 @@
-import React from 'react';
 
-const Posts = () => {
+import React,{useState,useEffect} from 'react';
+import PostThumb from '../PostThumb'
+
+const Posts = ({id,auth,dispatch,profile}) => {
+    const[posts,setPosts]=useState([])
+    const[result,setResult]=useState(9)
+    useEffect(()=>{
+        profile.posts.forEach(data => {
+            if(data._id===id){
+                setPosts(data.posts)
+                setResult(data.result)
+                
+            }
+            
+        });
+    },[profile.posts,id])
     return(
         <div>
-            Posts
+            <PostThumb posts={posts} result={result} />
         </div>
     )
 }

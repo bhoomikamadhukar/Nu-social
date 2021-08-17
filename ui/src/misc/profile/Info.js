@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { useParams} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import Avatar from '../Avatar'
+import Avatar from 'react-avatar'
 import EditProfile from './EditProfile'
 import FollowBtn from '../FollowBtn'
 import Followers from './Followers'
 import Following from './Following'
 import { GLOBALTYPES } from '../../redux/actions/globalTypes'
-import {getProfileUsers} from '../../redux/actions/profileAction'
+
 const Info = () => {
     const { id } = useParams()
     const {auth,profile} = useSelector(state => state)
@@ -23,7 +23,7 @@ const Info = () => {
         if(id === auth.user._id){
             setUserData([auth.user])
         }else{
-            dispatch(getProfileUsers({users:profile.users,id,auth}))
+           
             const newData = profile.users.filter(user => user._id === id)
             setUserData(newData)
         }
@@ -43,7 +43,7 @@ const Info = () => {
             {
                 userData.map(user => (
                     <div className="info_container" key={user._id}>
-                        <Avatar src={user.avatar} size="supper-avatar" />
+                        <Avatar name={`${user.username}` } size="150"/>
 
                         <div className="info_content">
                             <div className="info_content_title">

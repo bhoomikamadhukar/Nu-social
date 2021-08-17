@@ -29,10 +29,8 @@
   }
   
   .main {
-    max-width: 1000px;
     width: 100%;
-    min-height: 100vh;
-    margin: auto;
+    margin: 0;
   }
   
   img {
@@ -46,10 +44,12 @@
   
   @import url("./header.css");
   
-  @import url("./avatar.css");
   @import url("./profile.css");
   @import url("./home.css");
   @import url("./status_modal.css");
   @import url("./comments.css");
+  @import url("./post_thumb.css");
+  @import url("./message.css");
+  @import url("./call_modal.css");
   
   

@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { checkImage } from '../../utils/imageUpload'
-import { GLOBALTYPES } from '../../redux/actions/globalTypes'
 import { updateProfileUser } from '../../redux/actions/profileAction'
-
+import Avatar from 'react-avatar'
 const EditProfile = ({setOnEdit}) => {
     const initState = {
         fullname: '', mobile: '', address: '', website: '', story: '', gender: ''
@@ -11,9 +9,9 @@ const EditProfile = ({setOnEdit}) => {
     const [userData, setUserData] = useState(initState)
     const { fullname, mobile, address, website, story, gender } = userData
 
-    const [avatar, setAvatar] = useState('')
+    const [avatar] = useState('')
 
-    const { auth, theme } = useSelector(state => state)
+    const { auth } = useSelector(state => state)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -21,16 +19,6 @@ const EditProfile = ({setOnEdit}) => {
     }, [auth.user])
 
 
-    const changeAvatar = (e) => {
-        const file = e.target.files[0]
-
-        const err = checkImage(file)
-        if(err) return dispatch({
-            type: GLOBALTYPES.ALERT, payload: {error: err}
-        })
-
-        setAvatar(file)
-    }
 
     const handleInput = e => {
         const { name, value } = e.target
@@ -51,14 +39,8 @@ const EditProfile = ({setOnEdit}) => {
 
             <form onSubmit={handleSubmit}>
                 <div className="info_avatar">
-                    <img src={avatar ? URL.createObjectURL(avatar) : auth.user.avatar} 
-                    alt="avatar" style={{filter: theme ? 'invert(1)' : 'invert(0)'}} />
-                    <span>
-                        <i className="fas fa-camera" />
-                        <p>Change</p>
-                        <input type="file" name="file" id="file_up"
-                        accept="image/*" onChange={changeAvatar} />
-                    </span>
+                <Avatar name={`${auth.user.username}` } size="150"/>
+                    
                 </div>
 
                 <div className="form-group">
