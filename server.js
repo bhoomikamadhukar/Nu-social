@@ -42,6 +42,13 @@ mongoose.connect(URI,{
     console.log('Connected to mongo')
 })
 
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static('ui/build'))
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, 'ui', 'build', 'index.html'))
+    })
+}
+
 const port = process.env.PORT || 8000;
 http.listen(port,()=>{
     console.log("Success. App is running on",port)
