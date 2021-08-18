@@ -1,3 +1,4 @@
+
 const mongoose = require('mongoose')
 
 const messageSchema = new mongoose.Schema({
@@ -7,7 +8,6 @@ const messageSchema = new mongoose.Schema({
     text: String,
     media: Array,
     call: Object
-
 }, {
     timestamps: true
 })
